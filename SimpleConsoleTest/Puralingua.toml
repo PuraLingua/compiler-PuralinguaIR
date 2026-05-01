@@ -1,0 +1,16 @@
+[package]
+assembly_name = 'SimpleConsoleTest'
+version = '0.1.0'
+
+[stdlib]
+include = ["System"]
+
+[[compilers]]
+name = "PuralinguaIR"
+path = "../target/debug/Compiler_PuralinguaIR"
+
+[lang_spec_dependencies.PuralinguaIR]
+"SimpleIR::SimpleConsole" = { path = '$PURALINGUA_HOME/Library/LanguageSpecific/SimpleIR/SimpleConsole' }
+
+[[includes]]
+path = "./src/*"

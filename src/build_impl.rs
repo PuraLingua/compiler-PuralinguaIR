@@ -53,7 +53,10 @@ impl Compiler {
     ) -> global::Result<()> {
         let file = self.file.get_cloned().unwrap();
         #[cfg(debug_assertions)]
-        let last_index = self.last_index.get_cloned().unwrap().unwrap();
+        let last_index = self.last_index.get_cloned().unwrap().unwrap_or_else(|| {
+            println!("Last index has not been set, use default");
+            0
+        });
 
         for (ind, ty) in file.types.iter().enumerate() {
             debug_assert_eq!((ind as u32) + last_index, ty.index());
