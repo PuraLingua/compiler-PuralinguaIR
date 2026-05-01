@@ -1,0 +1,51 @@
+[package]
+name = "pura_lingua_compiler-puralingua_ir"
+version.workspace = true
+edition.workspace = true
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[workspace]
+members = ["crates/*"]
+
+[workspace.dependencies]
+thiserror = "2.0.18"
+derive_more = { version = "2.0.1", features = ["full"] }
+
+pura_lingua = { git = "https://github.com/PuraLingua/pura_lingua.git", features = [
+	"binary",
+	"stdlib_header",
+] }
+compiler_base = { git = "https://github.com/PuraLingua/compiler_base.git", package = "pura_lingua_compiler_base" }
+compiler_service = { git = "https://github.com/PuraLingua/compiler_service.git", package = "pura_lingua_compiler_service_export" }
+
+fmt_with_src = { package = "fmt_with_src", git = "https://github.com/ExPuritate/fmt_with_src.git" }
+
+proc_macro_utils = { package = "pura_lingua_compiler-puralingua_ir_proc_macro_utils", path = "./crates/proc_macro_utils" }
+enumflags2 = { version = "0.7.11", features = ["std"] }
+
+[workspace.dependencies.konst]
+version = "0.4"
+features = ["alloc", "rust_latest_stable", "const_panic_derive"]
+
+[workspace.lints]
+
+[dependencies]
+pura_lingua = { workspace = true }
+compiler_base = { workspace = true }
+compiler_service = { workspace = true }
+fmt_with_src = { workspace = true }
+
+thiserror = { workspace = true }
+derive_more = { workspace = true }
+
+ast = { package = "pura_lingua_compiler-puralingua_ir_ast", path = "./crates/ast" }
+
+[lib]
+name = "Compiler_PuralinguaIR"
+crate-type = ["cdylib"]
+
+[dev-dependencies]
+libloading = "0.9.0"

@@ -1,0 +1,15 @@
+[package]
+name = "pura_lingua_compiler-puralingua_ir_token"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+thiserror = { workspace = true }
+derive_more = { workspace = true }
+konst = { workspace = true }
+
+fmt_with_src = { workspace = true }
+
+compiler_base = { workspace = true }
+
+proc_macro = { package = "pura_lingua_compiler-puralingua_ir_token_proc_macro", path = "./proc_macro" }

@@ -1,0 +1,92 @@
+class[0 public] "MsgboxTest::Test": [!]"System::Object"
+{
+	// Statics
+	field[0 public static] LIB: [!]"System::DynamicLibrary";
+	method[2 public static] ".sctor"() -> [!]"System::Void"
+	{
+		locals (
+			dllName: [!]"System::String"
+			dll: [!]"System::DynamicLibrary"
+		)
+
+		Load "User32.dll" -> dllName;
+		NewObject [!]"System::DynamicLibrary" 2(dllName) -> dll;
+		SetStaticField dll -> [MsgboxTest]"MsgboxTest::Test" 0;
+	}
+	method[3 public static] "TestFn"() -> [!]"System::Int32"
+	{
+		locals (
+			junk: [!]"System::Void"
+
+			lib: [!]"System::DynamicLibrary"
+			methodName: [!]"System::String"
+			fnPtr: [!]"System::Pointer"
+
+			hWnd: [!]"System::Pointer"
+			lpText: [!]"System::String"
+			lpCaption: [!]"System::String"
+			uType: [!]"System::UInt32"
+
+			callConfig: [!]"System::NonPurusCallConfiguration"
+			callConvention: [!]"System::UInt8"
+			returnType: [!]"System::NonPurusCallType"
+			encoding: [!]"System::UInt8"
+			objectStrategy: [!]"System::UInt8"
+			byrefArguments: [!]"System::Array`1"<[!]"System::USize">
+			arguments: [!]"System::Array`1"<[!]"System::NonPurusCallType">
+			indexForSetting: [!]"System::USize"
+			argument: [!]"System::NonPurusCallType"
+
+			RET: [!]"System::Int32"
+		)
+
+		Load static([MsgboxTest]"MsgboxTest::Test" 0) -> lib;
+		Load "MessageBoxW" -> methodName;
+		InstanceCall lib GetSymbol(methodName) -> fnPtr;
+
+		// Arguments
+		Load 0u64 -> hWnd;
+		Load "Test passed" -> lpText;
+		Load "INFO" -> lpCaption;
+		Load 64u32 /* MB_ICONINFORMATION */ -> uType;
+
+		// Config
+		Load 0u8 /* PlatformDefault */ -> callConvention;
+		StaticCall [!]"System::NonPurusCallType" CreateI32() -> returnType;
+		Load 2u8 /* C_Utf16 */ -> encoding;
+		Load 1u8 /* PointToData */ -> objectStrategy;
+		NewArray [!]"System::USize" 0 -> byrefArguments;
+
+		NewArray [!]"System::NonPurusCallType" 4 -> arguments;
+		// Arg0
+		Load 0u64 -> indexForSetting;
+		StaticCall [!]"System::NonPurusCallType" CreatePointer() -> argument;
+		InstanceCall arguments set_Index (indexForSetting, argument) -> junk;
+		// Arg1
+		Load 1u64 -> indexForSetting;
+		StaticCall [!]"System::NonPurusCallType" CreateString() -> argument;
+		InstanceCall arguments set_Index(indexForSetting, argument) -> junk;
+		// Arg2
+		Load 2u64 -> indexForSetting;
+		StaticCall [!]"System::NonPurusCallType" CreateString() -> argument;
+		InstanceCall arguments set_Index(indexForSetting, argument) -> junk;
+		// Arg3
+		Load 3u64 -> indexForSetting;
+		StaticCall [!]"System::NonPurusCallType" CreateU32() -> argument;
+		InstanceCall arguments set_Index(indexForSetting, argument) -> junk;
+
+		NewObject
+			[!]"System::NonPurusCallConfiguration"
+			2(
+				callConvention,
+				returnType,
+				encoding,
+				objectStrategy,
+				byrefArguments,
+				arguments,
+			) -> callConfig;
+
+		NonPurusCall #callConfig fnPtr(hWnd, lpText, lpCaption, uType) -> RET;
+		ReturnVal RET;
+	}
+}

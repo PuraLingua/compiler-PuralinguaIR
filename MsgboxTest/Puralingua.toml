@@ -1,0 +1,13 @@
+[package]
+assembly_name = 'MsgboxTest'
+version = '0.1.0'
+
+[stdlib]
+include = ["System"]
+
+[[compilers]]
+name = "PuralinguaIR"
+path = "../target/debug/Compiler_PuralinguaIR"
+
+[[includes]]
+path = "./src/*"

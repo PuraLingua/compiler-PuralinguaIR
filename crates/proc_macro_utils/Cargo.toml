@@ -1,0 +1,13 @@
+[package]
+name = "pura_lingua_compiler-puralingua_ir_proc_macro_utils"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+proc-macro2 = "1.0.103"
+quote = "1.0.42"
+syn = "2.0.110"
+proc-macro-crate = "3.3.0"
+
+[lints]
+workspace = true

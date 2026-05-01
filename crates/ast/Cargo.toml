@@ -1,0 +1,19 @@
+[package]
+name = "pura_lingua_compiler-puralingua_ir_ast"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+thiserror = { workspace = true }
+derive_more = { workspace = true }
+konst = { workspace = true }
+enumflags2 = { workspace = true }
+
+fmt_with_src = { workspace = true }
+
+compiler_base = { workspace = true }
+
+token = { package = "pura_lingua_compiler-puralingua_ir_token", path = "../token" }
+
+[lints]
+workspace = true
